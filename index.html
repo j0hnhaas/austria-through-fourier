@@ -22,46 +22,47 @@
             <div class="stage-title">Austria</div>
             <div class="stage-sub">drawn with Fourier epicycles</div>
           </div>
-          <div class="readout" aria-live="polite">
-            <div>N = <span id="nReadout">8</span></div>
+          <div class="readout">
+            <label class="n-select-label" for="nSelect">N =</label>
+            <select id="nSelect" aria-label="Anzahl der Harmonischen N">
+              <option value="8" selected>8</option>
+            </select>
             <small>error <span id="errorReadout">–</span></small>
           </div>
         </div>
-        <div class="stage-foot">
-          <div><span class="dot yellow"></span> x(t) <span class="stage-foot-muted">· horizontale Fourier-Kette</span></div>
-          <div><span class="dot mint"></span> y(t) <span class="stage-foot-muted">· vertikale Fourier-Kette</span></div>
-          <div class="stage-credit">Grenzdaten: Natural Earth 1:10m · CC0</div>
+        <div class="stage-controls" aria-label="Steuerung der Fourier-Animation">
+          <div class="stage-control">
+            <div class="stage-control-meta"><label for="harmonics">Harmonische</label><strong id="harmonicsValue">8</strong></div>
+            <input id="harmonics" type="range" min="1" max="100" value="8" step="1" aria-label="Anzahl der Harmonischen je Koordinate">
+          </div>
+          <div class="stage-control">
+            <div class="stage-control-meta"><label for="speed">Geschwindigkeit</label><strong><span id="speedValue">1,0</span>×</strong></div>
+            <input id="speed" type="range" min="0.25" max="3" value="1" step="0.25">
+          </div>
+          <div class="stage-control">
+            <div class="stage-control-meta"><label for="timeline">Fortschritt</label><strong><span id="progressValue">0</span> %</strong></div>
+            <input id="timeline" type="range" min="0" max="100" value="0" step="0.1">
+          </div>
+        </div>
+        <div class="stage-actions">
+          <button type="button" id="play" class="primary">Ⅱ Pause</button>
+          <button type="button" id="restart" class="secondary">↺ Neustart</button>
+          <button type="button" id="fullscreen" class="secondary" title="Vollbild" aria-label="Diagramm im Vollbild anzeigen">⛶</button>
+        </div>
+        <div class="plot-wrap">
+          <canvas id="visualization">Dein Browser unterstützt die Canvas-Darstellung nicht.</canvas>
+          <div class="stage-foot">
+            <div><span class="dot yellow"></span> x(t) <span class="stage-foot-muted">· horizontale Fourier-Kette</span></div>
+            <div><span class="dot mint"></span> y(t) <span class="stage-foot-muted">· vertikale Fourier-Kette</span></div>
+            <div class="stage-credit">Grenzdaten: Natural Earth 1:10m · CC0</div>
+          </div>
         </div>
       </section>
       <aside class="panel">
         <div class="eyebrow">INTERAKTIVES EXPERIMENT · ÖSTERREICH</div>
         <h1>Die Grenze als Schwingung.</h1>
         <p class="lede">Zwei Ketten rotierender Vektoren erzeugen unabhängig voneinander die x- und y-Koordinate. Ihr Schnittpunkt zeichnet Österreich.</p>
-        <div class="controlgroup">
-          <div class="labelrow"><label for="harmonics">Harmonische je Koordinate</label><strong id="harmonicsValue">8</strong></div>
-          <input id="harmonics" type="range" min="1" max="100" value="8" step="1" aria-label="Anzahl der Harmonischen je Koordinate">
-          <div class="presets" aria-label="Vorgewählte Harmonischenzahlen">
-            <button type="button" class="preset" data-n="1">1</button>
-            <button type="button" class="preset active" data-n="8">8</button>
-            <button type="button" class="preset" data-n="25">25</button>
-            <button type="button" class="preset" data-n="50">50</button>
-            <button type="button" class="preset" data-n="100">100</button>
-          </div>
-          <p class="hint">Bei N = 1 entsteht eine Ellipse. Zusätzliche Frequenzen modellieren die feineren Grenzverläufe. Pro Koordinate werden N rotierende Vektoren eingesetzt.</p>
-        </div>
-        <div class="controlgroup">
-          <div class="labelrow"><label for="speed">Geschwindigkeit</label><strong><span id="speedValue">1,0</span>×</strong></div>
-          <input id="speed" type="range" min="0.25" max="3" value="1" step="0.25">
-        </div>
-        <div class="controlgroup">
-          <div class="labelrow"><label for="timeline">Zeichenfortschritt</label><strong><span id="progressValue">0</span> %</strong></div>
-          <input id="timeline" type="range" min="0" max="100" value="0" step="0.1">
-          <div class="actions">
-            <button type="button" id="play" class="primary">Ⅱ Pause</button>
-            <button type="button" id="restart" class="secondary">↺ Neustart</button>
-            <button type="button" id="fullscreen" class="secondary" title="Vollbild">⛶</button>
-          </div>
-        </div>
+        <p class="hint description-hint">Bei N = 1 entsteht eine Ellipse; höhere Harmonische geben Österreichs Grenzverlauf immer genauer wieder.</p>
         <div class="controlgroup toggles">
           <label class="toggle"><input id="showOriginal" type="checkbox" checked><span>Originalkontur</span></label>
           <label class="toggle"><input id="showCircles" type="checkbox" checked><span>Kreise und Arme</span></label>
