@@ -11,17 +11,10 @@
   if (!ctx) return;
 
   const get = id => document.getElementById(id);
-  const $n = get("harmonics"), $nSelect = get("nSelect"), $speed = get("speed"), $timeline = get("timeline");
+  const $n = get("harmonics"), $speed = get("speed"), $timeline = get("timeline");
   const $play = get("play"), $restart = get("restart"), $full = get("fullscreen");
   const $source = get("showOriginal"), $circles = get("showCircles"), $guides = get("showGuides");
-  // Native dropdown, with every supported harmonic value.
-  $nSelect.replaceChildren();
-  for (let k = 1; k <= 100; k++) {
-    const option = document.createElement("option");
-    option.value = String(k);
-    option.textContent = String(k);
-    $nSelect.appendChild(option);
-  }
+  const presets = [...document.querySelectorAll(".preset")];
   const TWO_PI = 2 * Math.PI, SAMPLE_COUNT = 1024, MAX_N = 100;
   const YELLOW = "#ead27b", MINT = "#72c9b9", WHITE = "#f2f6f7";
   let n = 8, speed = 1, progress = 0, playing = true, lastTime = null;
@@ -91,10 +84,11 @@
     }
     rms = (100 / bboxDiagonal) * Math.sqrt(squared / SAMPLE_COUNT);
     const label = (rms < 0.1 ? rms.toFixed(3) : rms.toFixed(2)).replace(".", ",") + " %";
-    $nSelect.value = String(n);
+    get("nReadout").textContent = n;
     get("harmonicsValue").textContent = n;
     get("errorReadout").textContent = label;
     get("errorMetric").textContent = label;
+    presets.forEach(el => el.classList.toggle("active", Number(el.dataset.n) === n));
     draw();
   }
 
@@ -109,10 +103,6 @@
   }
 
   function scene() {
-    const square = w / h > 0.82 && w / h < 1.2;
-    if (square) {
-      return {ox: w * 0.60, oy: h * 0.67, top: h * 0.23, left: w * 0.14, scale: w * 0.35};
-    }
     const portrait = w / h < 0.8;
     return {
       ox: w * (portrait ? 0.63 : 0.66),
@@ -239,13 +229,9 @@
   }
 
   $n.addEventListener("input", () => {n = Number($n.value); progress = 0; updateProgress(); rebuild();});
-  $nSelect.addEventListener("change", () => {
-    n = Number($nSelect.value);
-    $n.value = String(n);
-    progress = 0;
-    updateProgress();
-    rebuild();
-  });
+  presets.forEach(btn => btn.addEventListener("click", () => {
+    n = Number(btn.dataset.n); $n.value = String(n); progress = 0; updateProgress(); rebuild();
+  }));
   $speed.addEventListener("input", () => {
     speed = Number($speed.value);
     get("speedValue").textContent = speed.toFixed(2).replace(/0$/, "").replace(".", ",");
