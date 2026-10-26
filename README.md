@@ -1,6 +1,6 @@
 # Austria through Fourier
 
-**Interaktive Animation der österreichischen Staatsgrenze durch zwei voneinander unabhängige Fourier-Epizykelketten.**
+**Lass Österreich schwingen!** Wie aus einfachen Schwingungen eine komplexe Form wird. Eine interaktive, spielerische Animation der österreichischen Staatsgrenze durch zwei unabhängige Fourier-Epizykelketten.
 
 [GitHub Pages – nach Aktivierung](https://j0hnhaas.github.io/austria-through-fourier/)
 
@@ -13,9 +13,15 @@ x(t) = a0_x + Σₖ [a_k,x · cos(k t) + b_k,x · sin(k t)]
 y(t) = a0_y + Σₖ [a_k,y · cos(k t) + b_k,y · sin(k t)]
 ```
 
-Die **obere gelbe Kette** liefert die horizontale Position, die **linke mintfarbene Kette** die vertikale Position. Ein weißer Stift am Schnittpunkt ihrer Führungsprojektionen zeichnet die Grenze. Jede Harmonische wird als ein rotierender Vektor mit dem Radius `√(a²+b²)` dargestellt.
+Die **obere rote Kette** liefert die horizontale Position, die **linke weiße Kette** die vertikale Position. Ein weißer Stift am Schnittpunkt ihrer Führungsprojektionen zeichnet die Grenze. Jede Harmonische wird als ein rotierender Vektor mit dem Radius `√(a²+b²)` dargestellt.
 
 Das Modell ist **keine physikalische Pendelsimulation**, sondern die geometrische Visualisierung einer diskreten Fourier-Reihe. Bei `N = 1` entstehen wegen der beiden reinen Grundschwingungen Ellipsen; mit höheren Harmonischen werden weitere Grenzdetails erkennbar.
+
+## Entdecken und verstehen
+
+Der Einstieg „Lass Österreich schwingen!“ erklärt das Grundprinzip ohne Formeln. Der Button **Mit einer Schwingung starten** setzt N auf 1 und startet die Animation. Kontextbezogene Hinweise ändern sich mit der Harmonischenzahl. Die Fragezeichen öffnen kurze, per Tastatur bedienbare Erklärdialoge zu Harmonischen, Fourier-Reihe, Epizykeln, Koordinatenbewegungen, Originalkontur und Rekonstruktionsfehler. Zusätzliche Anzeigeoptionen und mathematische Details befinden sich in der aufklappbaren Vertiefung.
+
+Das Design nutzt **Rot, Weiß und Schwarz** in Anlehnung an die österreichische Flagge. Die ursprüngliche Canvas-Anordnung und Fourier-Berechnung bleiben unverändert.
 
 ## Bedienung
 
@@ -50,8 +56,10 @@ Die neun Bundesländer-Polygone wurden entlang identischer gemeinsamer Kanten ve
 
 ```text
 index.html                 Interface und Steuerung
-style.css                  Dark-Mode-Design, responsives Layout
+style.css                  Ursprüngliches Layout
+education.css              Rot-Weiß-Schwarz-Design, Einstieg, Dialoge
 app.js                     Fourier-Analyse, Canvas-Animation und UI
+education.js               Kontexthinweise, Startaktion, Begriffserklärungen
 outline.js                 Österreich-Grenzkontur (CC0-Daten)
 .github/workflows/pages.yml  Veröffentlichungsworkflow
 ```
