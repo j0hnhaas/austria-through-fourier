@@ -20,9 +20,9 @@ Das Modell ist **keine physikalische Pendelsimulation**, sondern die geometrisch
 ## Bedienung
 
 - **Harmonische N (1–100):** Pro Achse N rotierende Vektoren, also insgesamt `2N`.
-- **Voreinstellungen:** 1 / 8 / 25 / 50 / 100.
-- **Geschwindigkeit:** 0,25 bis 3×; ein vollständiger Umlauf benötigt bei 1× ca. 22 Sekunden.
-- **Pause, Neustart und Scrubbing** entlang der geschlossenen Kurve.
+- **N-Dropdown:** Auswahl aller Werte von 1 bis 100, direkt im Diagrammkopf. Der N-Slider ist damit synchronisiert.
+- **Drei Slider im Diagramm:** Harmonische N (1–100), Geschwindigkeit (0,25–3×) und Zeichenfortschritt. Die Grafikfläche darunter ist annähernd quadratisch (1:1). Ein vollständiger Umlauf benötigt bei 1× ca. 22 Sekunden.
+- - **Pause, Neustart und Scrubbing** entlang der geschlossenen Kurve.
 - **Originalkontur**, **Kreise und Arme**, **Hilfslinien** einzeln ein-/ausblendbar.
 - **Vollbild** für Präsentationen.
 
