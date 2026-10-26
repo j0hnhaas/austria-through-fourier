@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#0c1017">
+  <meta name="description" content="Österreichs Staatsgrenze, gezeichnet von zwei Ketten rotierender Fourier-Vektoren. Eine interaktive mathematische Animation.">
+  <title>Austria through Fourier</title>
+  <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+  <main class="shell">
+    <header class="topbar">
+      <div class="brand"><span class="brand-mark" aria-hidden="true">◌</span><span>AUSTRIA <span class="muted">/ THROUGH FOURIER</span></span></div>
+      <a class="repo-link" href="https://github.com/j0hnhaas/austria-through-fourier" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
+    </header>
+    <div class="workspace">
+      <section class="stage" id="stage" aria-label="Animierte Fourier-Rekonstruktion der österreichischen Staatsgrenze">
+        <canvas id="visualization">Dein Browser unterstützt die Canvas-Darstellung nicht.</canvas>
+        <div class="stage-head">
+          <div>
+            <div class="stage-title">Austria</div>
+            <div class="stage-sub">drawn with Fourier epicycles</div>
+          </div>
+          <div class="readout" aria-live="polite">
+            <div>N = <span id="nReadout">8</span></div>
+            <small>error <span id="errorReadout">–</span></small>
+          </div>
+        </div>
+        <div class="stage-foot">
+          <div><span class="dot yellow"></span> x(t) <span class="stage-foot-muted">· horizontale Fourier-Kette</span></div>
+          <div><span class="dot mint"></span> y(t) <span class="stage-foot-muted">· vertikale Fourier-Kette</span></div>
+          <div class="stage-credit">Grenzdaten: Natural Earth 1:10m · CC0</div>
+        </div>
+      </section>
+      <aside class="panel">
+        <div class="eyebrow">INTERAKTIVES EXPERIMENT · ÖSTERREICH</div>
+        <h1>Die Grenze als Schwingung.</h1>
+        <p class="lede">Zwei Ketten rotierender Vektoren erzeugen unabhängig voneinander die x- und y-Koordinate. Ihr Schnittpunkt zeichnet Österreich.</p>
+        <div class="controlgroup">
+          <div class="labelrow"><label for="harmonics">Harmonische je Koordinate</label><strong id="harmonicsValue">8</strong></div>
+          <input id="harmonics" type="range" min="1" max="100" value="8" step="1" aria-label="Anzahl der Harmonischen je Koordinate">
+          <div class="presets" aria-label="Vorgewählte Harmonischenzahlen">
+            <button type="button" class="preset" data-n="1">1</button>
+            <button type="button" class="preset active" data-n="8">8</button>
+            <button type="button" class="preset" data-n="25">25</button>
+            <button type="button" class="preset" data-n="50">50</button>
+            <button type="button" class="preset" data-n="100">100</button>
+          </div>
+          <p class="hint">Bei N = 1 entsteht eine Ellipse. Zusätzliche Frequenzen modellieren die feineren Grenzverläufe. Pro Koordinate werden N rotierende Vektoren eingesetzt.</p>
+        </div>
+        <div class="controlgroup">
+          <div class="labelrow"><label for="speed">Geschwindigkeit</label><strong><span id="speedValue">1,0</span>×</strong></div>
+          <input id="speed" type="range" min="0.25" max="3" value="1" step="0.25">
+        </div>
+        <div class="controlgroup">
+          <div class="labelrow"><label for="timeline">Zeichenfortschritt</label><strong><span id="progressValue">0</span> %</strong></div>
+          <input id="timeline" type="range" min="0" max="100" value="0" step="0.1">
+          <div class="actions">
+            <button type="button" id="play" class="primary">Ⅱ Pause</button>
+            <button type="button" id="restart" class="secondary">↺ Neustart</button>
+            <button type="button" id="fullscreen" class="secondary" title="Vollbild">⛶</button>
+          </div>
+        </div>
+        <div class="controlgroup toggles">
+          <label class="toggle"><input id="showOriginal" type="checkbox" checked><span>Originalkontur</span></label>
+          <label class="toggle"><input id="showCircles" type="checkbox" checked><span>Kreise und Arme</span></label>
+          <label class="toggle"><input id="showGuides" type="checkbox" checked><span>Hilfslinien</span></label>
+        </div>
+        <div class="metric">
+          <div class="metric-overline">REKONSTRUKTIONSFEHLER</div>
+          <div class="metric-value" id="errorMetric">–</div>
+          <p>RMS-Punktabstand zwischen Original und Fourier-Kurve in Prozent der Diagonale des umschließenden Rechtecks. Nicht mit den Werten des Referenzvideos direkt gleichzusetzen.</p>
+        </div>
+        <details class="explain">
+          <summary>Wie funktioniert die Mathematik?</summary>
+          <p>Die geschlossene Grenze wird in 1.024 Punkten mit gleichem Abstand entlang der Kontur abgetastet. Für x(t) und y(t) berechnet die diskrete Fourier-Zerlegung getrennt Sinus- und Kosinuskoeffizienten.</p>
+          <p>Jede Frequenz k entspricht einem rotierenden Arm. Die horizontalen bzw. vertikalen Projektionen aller Arme ergeben die Koordinaten des weißen Zeichenpunkts.</p>
+          <p>Es handelt sich um eine kinematische Visualisierung von Fourier-Komponenten, nicht um physische Pendel unter Schwerkraft.</p>
+        </details>
+      </aside>
+    </div>
+    <footer class="footer">Eine interaktive Fourier-Visualisierung · © Projektcode gemäß Repository-Lizenz · <a href="https://www.naturalearthdata.com/about/terms-of-use/" target="_blank" rel="noopener noreferrer">Kartenbasis: Natural Earth (Public Domain)</a></footer>
+  </main>
+  <script src="./outline.js"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
