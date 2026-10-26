@@ -7,6 +7,7 @@
   <meta name="description" content="Österreichs Staatsgrenze, gezeichnet von zwei Ketten rotierender Fourier-Vektoren. Eine interaktive mathematische Animation.">
   <title>Austria through Fourier</title>
   <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./education.css">
 </head>
 <body>
   <main class="shell">
@@ -14,6 +15,21 @@
       <div class="brand"><span class="brand-mark" aria-hidden="true">◌</span><span>AUSTRIA <span class="muted">/ THROUGH FOURIER</span></span></div>
       <a class="repo-link" href="https://github.com/j0hnhaas/austria-through-fourier" target="_blank" rel="noopener noreferrer">GitHub ↗</a>
     </header>
+    <section class="intro" aria-labelledby="intro-title">
+      <div class="intro-main">
+        <div class="intro-flag" aria-hidden="true"></div>
+        <div class="intro-copy">
+          <p class="intro-kicker">INTERAKTIVES EXPERIMENT · ÖSTERREICH</p>
+          <h1 id="intro-title">Lass Österreich schwingen!</h1>
+          <p class="intro-tagline">Wie aus Schwingungen ein ganzes Land wird.</p>
+          <p class="intro-description">Ein Punkt bewegt sich gleichzeitig nach links und rechts sowie nach oben und unten. Füge weitere Schwingungen hinzu und beobachte, wie daraus Schritt für Schritt der Umriss Österreichs entsteht.</p>
+        </div>
+      </div>
+      <div class="intro-action">
+        <button type="button" id="startExperiment" class="intro-start">▶ Mit einer Schwingung starten</button>
+        <span>Keine Mathematikkenntnisse erforderlich. Einfach ausprobieren!</span>
+      </div>
+    </section>
     <div class="workspace">
       <section class="stage" id="stage" aria-label="Animierte Fourier-Rekonstruktion der österreichischen Staatsgrenze">
         <canvas id="visualization">Dein Browser unterstützt die Canvas-Darstellung nicht.</canvas>
@@ -24,21 +40,25 @@
           </div>
           <div class="readout" aria-live="polite">
             <div>N = <span id="nReadout">8</span></div>
-            <small>error <span id="errorReadout">–</span></small>
+            <small>Abweichung <span id="errorReadout">–</span></small>
           </div>
         </div>
         <div class="stage-foot">
-          <div><span class="dot yellow"></span> x(t) <span class="stage-foot-muted">· horizontale Fourier-Kette</span></div>
-          <div><span class="dot mint"></span> y(t) <span class="stage-foot-muted">· vertikale Fourier-Kette</span></div>
+          <div><span class="dot red"></span> x(t) <span class="stage-foot-muted">· horizontale Fourier-Kette</span></div>
+          <div><span class="dot white"></span> y(t) <span class="stage-foot-muted">· vertikale Fourier-Kette</span></div>
           <div class="stage-credit">Grenzdaten: Natural Earth 1:10m · CC0</div>
         </div>
       </section>
       <aside class="panel">
-        <div class="eyebrow">INTERAKTIVES EXPERIMENT · ÖSTERREICH</div>
-        <h1>Die Grenze als Schwingung.</h1>
-        <p class="lede">Zwei Ketten rotierender Vektoren erzeugen unabhängig voneinander die x- und y-Koordinate. Ihr Schnittpunkt zeichnet Österreich.</p>
+        <div class="eyebrow">ENTDECKEN · SELBST AUSPROBIEREN</div>
+        <h2 class="panel-title">Was passiert bei mehr Schwingungen?</h2>
+        <p class="lede">Beginne mit einer einfachen Kurve und füge nach und nach Schwingungen hinzu. Vergleiche die Zahlen 1, 8 und 50: Wie verändert sich die Form?</p>
+        <div class="panel-help-row">
+          <button type="button" class="text-help" data-help="axes" aria-haspopup="dialog">Wie bewegen sich die beiden Schwingungen? <span aria-hidden="true">?</span></button>
+          <button type="button" class="text-help" data-help="epicycles" aria-haspopup="dialog">Warum drehen sich Kreise? <span aria-hidden="true">?</span></button>
+        </div>
         <div class="controlgroup">
-          <div class="labelrow"><label for="harmonics">Harmonische je Koordinate</label><strong id="harmonicsValue">8</strong></div>
+          <div class="labelrow"><span class="label-with-help"><label for="harmonics">Harmonische</label><button type="button" class="help-button" data-help="harmonic" aria-label="Begriff Harmonische erklären" aria-haspopup="dialog">?</button></span><strong id="harmonicsValue">8</strong></div>
           <input id="harmonics" type="range" min="1" max="100" value="8" step="1" aria-label="Anzahl der Harmonischen je Koordinate">
           <div class="presets" aria-label="Vorgewählte Harmonischenzahlen">
             <button type="button" class="preset" data-n="1">1</button>
@@ -47,7 +67,10 @@
             <button type="button" class="preset" data-n="50">50</button>
             <button type="button" class="preset" data-n="100">100</button>
           </div>
-          <p class="hint">Bei N = 1 entsteht eine Ellipse. Zusätzliche Frequenzen modellieren die feineren Grenzverläufe. Pro Koordinate werden N rotierende Vektoren eingesetzt.</p>
+          <div class="learning-note">
+            <strong id="learningStep">Schritt 2 · Die Form nimmt Gestalt an</strong>
+            <p class="hint" id="harmonicsHint" aria-live="polite">Mit acht Schwingungen je Richtung entstehen bereits deutlich mehr Details als mit einer.</p>
+          </div>
         </div>
         <div class="controlgroup">
           <div class="labelrow"><label for="speed">Geschwindigkeit</label><strong><span id="speedValue">1,0</span>×</strong></div>
@@ -62,27 +85,42 @@
             <button type="button" id="fullscreen" class="secondary" title="Vollbild">⛶</button>
           </div>
         </div>
-        <div class="controlgroup toggles">
-          <label class="toggle"><input id="showOriginal" type="checkbox" checked><span>Originalkontur</span></label>
+        <details class="lab-more">
+          <summary>Vertiefen: Anzeige und Mathematik</summary>
+          <p class="lab-more-intro">Blende Zeichenhilfen ein oder aus und erfahre, welche Mathematik dahintersteckt.</p>
+          <div class="controlgroup toggles">
+          <div class="toggle-row"><label class="toggle"><input id="showOriginal" type="checkbox" checked><span>Originalkontur</span></label><button type="button" class="help-button" data-help="outline" aria-label="Originalkontur erklären" aria-haspopup="dialog">?</button></div>
           <label class="toggle"><input id="showCircles" type="checkbox" checked><span>Kreise und Arme</span></label>
           <label class="toggle"><input id="showGuides" type="checkbox" checked><span>Hilfslinien</span></label>
         </div>
         <div class="metric">
-          <div class="metric-overline">REKONSTRUKTIONSFEHLER</div>
+          <div class="metric-overline label-with-help">REKONSTRUKTIONSFEHLER <button type="button" class="help-button" data-help="error" aria-label="Rekonstruktionsfehler erklären" aria-haspopup="dialog">?</button></div>
           <div class="metric-value" id="errorMetric">–</div>
-          <p>RMS-Punktabstand zwischen Original und Fourier-Kurve in Prozent der Diagonale des umschließenden Rechtecks. Nicht mit den Werten des Referenzvideos direkt gleichzusetzen.</p>
+          <p>Abweichung der gezeichneten Kurve von der Originalgrenze. Je kleiner der Wert, desto genauer die Annäherung.</p>
         </div>
         <details class="explain">
           <summary>Wie funktioniert die Mathematik?</summary>
+          <p><button type="button" class="text-help" data-help="fourier" aria-haspopup="dialog">Was ist eine Fourier-Reihe? <span aria-hidden="true">?</span></button></p>
           <p>Die geschlossene Grenze wird in 1.024 Punkten mit gleichem Abstand entlang der Kontur abgetastet. Für x(t) und y(t) berechnet die diskrete Fourier-Zerlegung getrennt Sinus- und Kosinuskoeffizienten.</p>
           <p>Jede Frequenz k entspricht einem rotierenden Arm. Die horizontalen bzw. vertikalen Projektionen aller Arme ergeben die Koordinaten des weißen Zeichenpunkts.</p>
           <p>Es handelt sich um eine kinematische Visualisierung von Fourier-Komponenten, nicht um physische Pendel unter Schwerkraft.</p>
         </details>
+        </details>
       </aside>
     </div>
+    <dialog id="helpDialog" class="help-dialog" aria-labelledby="helpTitle" aria-describedby="helpBody">
+      <div class="help-dialog-inner">
+        <div class="help-dialog-top"><span class="help-eyebrow">KURZ ERKLÄRT</span><button type="button" id="closeHelp" class="help-close" aria-label="Erklärung schließen">×</button></div>
+        <h2 id="helpTitle"></h2>
+        <p id="helpBody"></p>
+        <p class="help-example" id="helpExample"></p>
+        <button type="button" id="helpDone" class="help-done">Verstanden</button>
+      </div>
+    </dialog>
     <footer class="footer">Eine interaktive Fourier-Visualisierung · © Projektcode gemäß Repository-Lizenz · <a href="https://www.naturalearthdata.com/about/terms-of-use/" target="_blank" rel="noopener noreferrer">Kartenbasis: Natural Earth (Public Domain)</a></footer>
   </main>
   <script src="./outline.js"></script>
   <script src="./app.js"></script>
+  <script src="./education.js"></script>
 </body>
 </html>

@@ -16,7 +16,7 @@
   const $source = get("showOriginal"), $circles = get("showCircles"), $guides = get("showGuides");
   const presets = [...document.querySelectorAll(".preset")];
   const TWO_PI = 2 * Math.PI, SAMPLE_COUNT = 1024, MAX_N = 100;
-  const YELLOW = "#ead27b", MINT = "#72c9b9", WHITE = "#f2f6f7";
+  const YELLOW = "#ED2939", MINT = "#F9F9F9", WHITE = "#FFFFFF";
   let n = 8, speed = 1, progress = 0, playing = true, lastTime = null;
   let w = 0, h = 0, dpr = 1, shape = [], rms = 0;
 
@@ -135,7 +135,7 @@
         ctx.beginPath();
         ctx.arc(x, y, radius, 0, TWO_PI);
         ctx.lineWidth = 0.8;
-        ctx.strokeStyle = "rgba(154,169,189," + (radius < 2 ? "0.15" : "0.28") + ")";
+        ctx.strokeStyle = "rgba(220,220,220," + (radius < 2 ? "0.15" : "0.28") + ")";
         ctx.stroke();
       }
       if (showCircles && radius > 0.6) {
@@ -160,7 +160,7 @@
 
     // A barely visible mathematical grid remains behind the silhouette.
     ctx.lineWidth = 0.55;
-    ctx.strokeStyle = "rgba(111,134,158,0.055)";
+    ctx.strokeStyle = "rgba(255,255,255,0.045)";
     for (let x = 0; x < w; x += 46) {
       ctx.beginPath(); ctx.moveTo(x, 0); ctx.lineTo(x, h); ctx.stroke();
     }
@@ -170,7 +170,7 @@
 
     if ($source.checked) {
       path(original, s, true);
-      ctx.lineWidth = 1.05; ctx.strokeStyle = "rgba(170,184,199,0.29)";
+      ctx.lineWidth = 1.05; ctx.strokeStyle = "rgba(245,245,245,0.25)";
       ctx.stroke();
     }
 
@@ -193,7 +193,7 @@
     if ($guides.checked) {
       ctx.save();
       ctx.beginPath(); ctx.setLineDash([3, 5]);
-      ctx.lineWidth = 0.9; ctx.strokeStyle = "rgba(175,194,211,0.48)";
+      ctx.lineWidth = 0.9; ctx.strokeStyle = "rgba(255,255,255,0.44)";
       ctx.moveTo(endX.x, endX.y); ctx.lineTo(penX, penY);
       ctx.moveTo(endY.x, endY.y); ctx.lineTo(penX, penY);
       ctx.stroke(); ctx.restore();
