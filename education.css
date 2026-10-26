@@ -110,3 +110,6 @@ input[type=range] { accent-color:#ed2939;min-height:28px; }
   .help-dialog { position:fixed;inset:auto 0 0;width:100%;max-width:none;max-height:78dvh;margin:0;border-radius:18px 18px 0 0; }
   .help-dialog-inner { padding:22px 20px max(24px,env(safe-area-inset-bottom)); }
 }
+
+/* Keep the dialog trigger outside the checkbox label activation area. */
+.toggle-row { display:flex;align-items:center;gap:9px; }
